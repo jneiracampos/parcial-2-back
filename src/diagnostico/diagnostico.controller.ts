@@ -21,7 +21,7 @@ export class DiagnosticoController {
 
     @Post()
     async create(@Body() diagnostico: DiagnosticoEntity): Promise<DiagnosticoEntity> {
-        return await this.diagnosticoService.create(diagnostico));
+        return await this.diagnosticoService.create(diagnostico);
     }
 
     @Delete(':diagnosticoId')
