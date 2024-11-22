@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, UseInterceptors } from '@nestjs/common';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/bussiness-errors.interceptor';
 import { DiagnosticoEntity } from './diagnostico.entity';
 import { DiagnosticoService } from './diagnostico.service';
