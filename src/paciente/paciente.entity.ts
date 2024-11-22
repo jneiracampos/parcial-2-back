@@ -1,5 +1,5 @@
-import { DiagnosticoEntity } from 'src/diagnostico/diagnostico.entity';
-import { MedicoEntity } from 'src/medico/medico.entity';
+import { DiagnosticoEntity } from '../diagnostico/diagnostico.entity';
+import { MedicoEntity } from '../medico/medico.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany } from 'typeorm';
 
 @Entity()

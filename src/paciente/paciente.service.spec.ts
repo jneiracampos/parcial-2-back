@@ -59,16 +59,16 @@ describe('PacienteService', () => {
     expect(storedPatient.genero).toEqual(patient.genero);
   });
 
-  it('create should throw an exception for a non associated chef', async () => {
+  it('create should throw an exception for an invalid patient', async () => {
     const patient: PacienteEntity = {
       id: "",
-      nombre: "abc",
+      nombre: "ab",
       genero: faker.helpers.arrayElement(["Masculino", "Femenino"]),
       medicos: [],
       diagnosticos: []
   };
 
-    await expect(service.create(patient)).rejects.toHaveProperty("message", "El nombre no puede ser menor a tres caracteres");
+    await expect(service.create(patient)).rejects.toHaveProperty("message", "The name must be at least 3 characters long");
   });
 
 });

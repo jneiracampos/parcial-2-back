@@ -26,19 +26,25 @@ export class PacienteService {
 
     async create(patient: PacienteEntity): Promise<PacienteEntity> {
 
-        //nombre debe ser mayor a 3 caracteres
+        //El nombre debe ser mayor a 3 caracteres
         if (patient.nombre.length < 3) {
-            throw new BusinessLogicException("The name must be at least 3 characters long", BusinessError.INVALID_FORMAT);
+            throw new BusinessLogicException("The name must be at least 3 characters long", BusinessError.PRECONDITION_FAILED);
         }
+
+        // No se puede eliminar un paciente si tiene un diagnóstico asociado.
+        if (patient.diagnosticos.length > 0) {
+            throw new BusinessLogicException("The patient cannot be deleted because it has an associated diagnosis", BusinessError.PRECONDITION_FAILED);
+        }
+        
         return await this.pacienteRepository.save(patient);
     }
 
     async delete(id: string) {
-        const ingredient: PacienteEntity = await this.pacienteRepository.findOne({where: {id}});
-        if (!ingredient) {
-            throw new BusinessLogicException("The ingredient with the given id was not found", BusinessError.NOT_FOUND);
+        const patient: PacienteEntity = await this.pacienteRepository.findOne({where: {id}});
+        if (!patient) {
+            throw new BusinessLogicException("The patient with the given id was not found", BusinessError.NOT_FOUND);
         }
 
-        await this.pacienteRepository.remove(ingredient);
+        await this.pacienteRepository.remove(patient);
     }
 }

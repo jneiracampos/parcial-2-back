@@ -12,11 +12,11 @@ export class MedicoService {
     ){}
 
     async findAll(): Promise<MedicoEntity[]> {
-        return await this.medicoRepository.find({relations: ['recipes']});
+        return await this.medicoRepository.find({relations: ['pacientes']});
     }
 
     async findOne(id: string): Promise<MedicoEntity> {
-        const medico: MedicoEntity = await this.medicoRepository.findOne({where: {id}, relations: ['recipes']});
+        const medico: MedicoEntity = await this.medicoRepository.findOne({where: {id}, relations: ['pacientes']});
         if (!medico) {
             throw new BusinessLogicException("The doctor with the given id was not found", BusinessError.NOT_FOUND);
         }
@@ -25,6 +25,17 @@ export class MedicoService {
     }
 
     async create(medico: MedicoEntity): Promise<MedicoEntity> {
+
+        //  El nombre y la especialidad no pueden ser nulos.
+        if (!medico.nombre || !medico.especialidad) {
+            throw new BusinessLogicException("The name and specialty fields are required", BusinessError.PRECONDITION_FAILED);
+        }
+
+        //  No se puede eliminar un médico si tiene al menos un paciente asociado.
+        if (medico.pacientes.length > 0) {
+            throw new BusinessLogicException("The doctor cannot be deleted because it has at least one associated patient", BusinessError.PRECONDITION_FAILED);
+        }
+
         return await this.medicoRepository.save(medico);
     }
 

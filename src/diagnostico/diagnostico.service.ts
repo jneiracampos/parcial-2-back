@@ -25,6 +25,12 @@ export class DiagnosticoService {
     }
 
     async create(ingredient: DiagnosticoEntity): Promise<DiagnosticoEntity> {
+
+        // La descripción debe tener una maxima longitud de 200 caracteres.
+        if (ingredient.description.length > 200) {
+            throw new BusinessLogicException("The description must have a maximum length of 200 characters", BusinessError.PRECONDITION_FAILED);
+        }
+
         return await this.diagnosticoRepository.save(ingredient);
     }
 
