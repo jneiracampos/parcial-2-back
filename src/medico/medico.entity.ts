@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { PacienteEntity } from 'src/paciente/paciente.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
 
 @Entity()
 export class MedicoEntity {
@@ -13,4 +14,8 @@ export class MedicoEntity {
   
     @Column()
     telefono: string;
+
+    @ManyToMany(() => PacienteEntity, paciente => paciente.medicos)
+    @JoinTable()
+    pacientes: PacienteEntity[];
 }
