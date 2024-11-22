@@ -13,6 +13,16 @@ export class DiagnosticoEntity {
     description: string
 
     @ManyToMany(() => PacienteEntity, paciente => paciente.diagnosticos)
-    @JoinTable()
+    @JoinTable({
+        name: 'diagnostico_paciente',
+        joinColumn: {
+            name: 'diagnostico_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'paciente_id',
+            referencedColumnName: 'id',
+        },
+    })
     pacientes: PacienteEntity[];
 }

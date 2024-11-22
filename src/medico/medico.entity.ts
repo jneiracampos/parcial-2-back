@@ -16,6 +16,16 @@ export class MedicoEntity {
     telefono: string;
 
     @ManyToMany(() => PacienteEntity, paciente => paciente.medicos)
-    @JoinTable()
+    @JoinTable({
+        name: 'medico_paciente',
+        joinColumn: {
+            name: 'medico_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'paciente_id',
+            referencedColumnName: 'id',
+        },
+    })
     pacientes: PacienteEntity[];
 }

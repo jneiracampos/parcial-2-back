@@ -27,6 +27,7 @@ export class PacienteMedicoService {
         }
 
         paciente.medicos = [...paciente.medicos, medico];
+        
         return await this.pacienteRepository.save(paciente);
     }
 }
