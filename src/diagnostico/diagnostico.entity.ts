@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { PacienteEntity } from 'src/paciente/paciente.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
 
 @Entity()
 export class DiagnosticoEntity {
@@ -11,5 +12,7 @@ export class DiagnosticoEntity {
     @Column()
     description: string
 
-
+    @ManyToMany(() => PacienteEntity, paciente => paciente.diagnosticos)
+    @JoinTable()
+    pacientes: PacienteEntity[];
 }
