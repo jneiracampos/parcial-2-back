@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Post, UseInterceptors }
 import { BusinessErrorsInterceptor } from '../shared/interceptors/bussiness-errors.interceptor';
 import { DiagnosticoEntity } from './diagnostico.entity';
 import { DiagnosticoService } from './diagnostico.service';
+import { DiagnosticoDTO } from './diagnostico.dto';
+import { plainToInstance } from 'class-transformer';
 
 
-@Controller('diagnotico')
+@Controller('diagnostico')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class DiagnosticoController {
     constructor(private readonly diagnosticoService: DiagnosticoService) { }
@@ -20,8 +22,8 @@ export class DiagnosticoController {
     }
 
     @Post()
-    async create(@Body() diagnostico: DiagnosticoEntity): Promise<DiagnosticoEntity> {
-        return await this.diagnosticoService.create(diagnostico);
+    async create(@Body() diagnostico: DiagnosticoDTO): Promise<DiagnosticoEntity> {
+        return await this.diagnosticoService.create(plainToInstance(DiagnosticoEntity, diagnostico));
     }
 
     @Delete(':diagnosticoId')

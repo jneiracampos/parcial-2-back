@@ -8,10 +8,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DiagnosticoEntity } from './diagnostico/diagnostico.entity';
 import { MedicoEntity } from './medico/medico.entity';
 import { PacienteEntity } from './paciente/paciente.entity';
+import { PacienteMedicoModule } from './paciente-medico/paciente-medico.module';
 
 
 @Module({
-  imports: [DiagnosticoModule, MedicoModule, PacienteModule,
+  imports: [DiagnosticoModule, MedicoModule, PacienteModule, PacienteMedicoModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
